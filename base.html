@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Amor da Minha Vida</title>
+    <!-- Fontes Bonitas -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ESTILO GERAL */
+        body {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden; /* Evita rolagem lateral */
+        }
+
+        /* TELA DE ABERTURA (OVERLAY) */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+
+        #overlay h1 {
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        #btn-iniciar {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background-color: white;
+            color: #db2777;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        #btn-iniciar:active {
+            transform: scale(0.95);
+        }
+
+        /* CONTEÚDO PRINCIPAL (INICIALMENTE ESCONDIDO) */
+        #main-content {
+            display: none; /* Só aparece depois do clique */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0; /* Começa transparente para animar */
+            transition: opacity 1.5s ease;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(219, 39, 119, 0.15);
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1.titulo-principal {
+            font-family: 'Dancing Script', cursive;
+            color: #db2777;
+            font-size: 3em;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* PLAYER DE ÁUDIO ESTILIZADO */
+        .audio-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fce7f3;
+            border-radius: 15px;
+            border: 1px dashed #db2777;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+            outline: none;
+        }
+
+        /* TEXTO DA CARTA */
+        .texto-carta p {
+            line-height: 1.8;
+            font-size: 1.15em;
+            color: #4a4a4a;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        @media (max-width: 480px) {
+            .texto-carta p { text-align: left; }
+            h1.titulo-principal { font-size: 2.5em; }
+        }
+
+        .destaque {
+            color: #db2777;
+            font-weight: 700;
+            background-color: #fce7f3;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
+        /* GALERIA POLAROID */
+        .galeria {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .moldura-foto {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .moldura-foto:nth-child(odd) { transform: rotate(-3deg); }
+        .moldura-foto:nth-child(even) { transform: rotate(3deg); }
+
+        .moldura-foto:hover {
+            transform: scale(1.03) rotate(0deg);
+            z-index: 10;
+        }
+
+        .moldura-foto img {
+            width: 100%;
+            display: block;
+            filter: sepia(10%);
+        }
+
+        .legenda {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #555;
+        }
+
+        /* MENSAGEM FINAL */
+        .botao-final {
+            margin-top: 60px;
+            padding: 30px;
+            background: #fff0f5;
+            border: 2px dashed #db2777;
+            border-radius: 20px;
+            color: #db2777;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE BLOQUEIO (Para permitir o áudio) -->
+    <div id="overlay">
+        <h1 style="font-family: 'Dancing Script', cursive;">Para o meu amor...</h1>
+        <button id="btn-iniciar" onclick="iniciarSite()">Clique em mim!! ❤️</button>
+    </div>
+
+    <!-- CONTEÚDO DO SITE -->
+    <div id="main-content" style="display:none;">
+        <div class="container">
+            <!-- Cabeçalho -->
+            <h1 class="titulo-principal">Espero que você ainda me ame...</h1>
+            
+            <!-- Player de Música MP3 -->
+            <div class="audio-container">
+                <p style="margin: 0 0 10px 0; font-size: 0.9em; color: #666;">Tocando: Photograph - Ed Sheeran 🎵</p>
+                <!-- O arquivo musica.mp3 deve estar na mesma pasta -->
+                <audio id="player" controls loop>
+                    <source src="musica.mp3" type="audio/mp3">
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+
+            <!-- O Pedido de Desculpas -->
+            <div class="texto-carta">
+                <p>Meu momo,</p>
+
+                <p>Eu sei que as coisas não têm sido fáceis. Sei que meus erros, mais a distância que nos faz ficarmos longe, fazem com que você pense que o nosso relacionamento é uma mentira, ou até mesmo que ele "não existe" de verdade.</p>
+
+                <p>Eu escrevo isso com todo amor e carinho pra você, para provar o contrário. <span class="destaque">Sei que estamos longe, mas isso não anula o que sentimos um pro outro.</span></p>
+
+                <p>Como na música, o amor pode sim doer e é também a única coisa que nos faz sentir vivos e é por isso que nós guardamos em uma fotografia. É por isso que logo abaixo eu deixei as fotos que eu amo muito nossa.</p>
+
+                <p>Você pode ver nas fotos que eu sempre estou feliz, sempre estou sorrindo e é assim que eu me sinto estando ao seu lado e conversando com você, pois eu te amo mais do que qualquer coisa nessa vida. <strong>Você é tudo pra mim, tudo que nós vivemos juntos foi real e nada disso foi uma mentira e eu sou grato por todos os momentos que vivemos e que vamos viver ainda.</strong></p>
+
+                <p>Me perdoa por te fazer pensar e duvidar do que somos é apenas uma mentira, me desculpa por todos aqueles erros que eu cometi que te fizeram sofrer, surtar, chorar, me odiar. Mas saiba que eu te amo e eu quero encurtar essa nossa distância e ficar mais perto de você e te fazer a mulher mais feliz do mundo.</p>
+            </div>
+
+            <!-- Galeria de Fotos -->
+            <div class="galeria">
+                
+                <div class="moldura-foto">
+                    <img src="foto1.jpg" alt="Nós">
+                    <div class="legenda">Eu te amo momo ❤️</div>
+                </div>
+
+                <div class="moldura-foto">
+                    <img src="foto2.jpg" alt="Nós">
+                    <div class="legenda">Nosso momentinho feliz</div>
+                </div>
+
+                <div class="moldura-foto">
+                    <img src="foto3.jpg" alt="Nós">
+                    <div class="legenda">Amo seu sorriso</div>
+                </div>
+                
+                <div class="moldura-foto">
+                    <img src="foto4.jpg" alt="Nós">
+                    <div class="legenda">Sinto sua falta</div>
+                </div>
+
+                <div class="moldura-foto">
+                    <img src="foto5.jpg" alt="Nós">
+                    <div class="legenda">Feliz ao seu lado</div>
+                </div>
+
+            </div>
+
+            <!-- Mensagem Final -->
+            <div class="botao-final">
+                Eu te amo mais que tudo.<br> Eu te quero para todo o sempre, me perdoa por favor, não desiste ta? Eu vou mudar isso, quero te fazer a mulher mais feliz desse mundo.
+                Eu te amo e me desculpa por eu ter errado tanto
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function iniciarSite() {
+            // Esconde a tela de bloqueio
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+            }, 1000);
+
+            // Mostra o site
+            var mainContent = document.getElementById('main-content');
+            mainContent.style.display = 'flex';
+            
+            // Pequeno delay para a animação funcionar
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+            }, 100);
+
+            // Toca a música
+            var audio = document.getElementById('player');
+            audio.play().catch(function(error) {
+                console.log("Erro ao tentar tocar: " + error);
+            });
+        }
+    </script>
+
+</body>
+</html>
